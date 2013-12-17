@@ -1,0 +1,25 @@
+{{#if msg}}
+<<div class="invisible-layer">
+<div id="frontendPopup" class="layer" {{bindAttr style="heightStyle"}}>
+    <div class="lightbox" id="alert" {{bindAttr style="topStyle"}}>
+
+        <p class="text-content" id="alert-title">
+            WARNING
+
+        </p>
+
+        <p class="text-content" id="alert-text">
+            {{msg}}
+
+        </p>
+
+
+            <div class="button-holder">
+                <!--<a href="#" class="button" id="alert-button-ok" {{action "hideAlert" on="click" target="controller"}}>Ok</a>-->
+                <button {{action "hideAlert" on="click" target="controller"}}>Ok</button>
+            </div>
+
+    </div>
+</div>
+</div>
+{{/if}}

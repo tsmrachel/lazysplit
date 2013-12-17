@@ -1,0 +1,325 @@
+@import "compass/reset";
+@import "compass/css3/box-shadow";
+@import "compass/css3/border-radius";
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin font-size($sizeValue: 1.6) {
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
+}
+
+@mixin letterpress($opacity){
+  text-shadow:white($opacity) 0 1px 0;
+}
+
+@mixin inset-text {
+  color: #344251;
+  text-shadow: 1px 1px 0px #bad3ed;
+  font-weight: bold;
+}
+
+html{
+//  font-size: 62.5%;
+  font-family: 'Lato', sans-serif;
+}
+
+
+input {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 25px;
+  margin-top: 5px;
+  padding: 0 15px 2px;
+  font-size: 17px;
+  background: white;
+  border: 2px solid #ebebeb;
+  border-radius: 4px;
+  @include box-shadow(inset 0 -1px #ebebeb);
+
+  &:focus {
+    border-color: #62c2e4;
+    outline: none;
+    @include box-shadow(inset 0 -2px #62c2e4);
+  }
+
+  .lt-ie9 & { line-height: 48px; }
+}
+
+button {
+  position: relative;
+  vertical-align: top;
+  width: 100%;
+  height: 54px;
+  padding: 0;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(black, .25);
+  background: #f0776c;
+  border: 0;
+  border-bottom: 2px solid #d76b60;
+  border-radius: 5px;
+  cursor: pointer;
+  @include box-shadow(inset 0 -2px #d76b60);
+
+  &:active {
+    top: 1px;
+    outline: none;
+    @include box-shadow(none);
+  }
+}
+
+
+.nav-bar{
+  background: #393939;
+  height: 40px;
+  line-height: 42px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 110%;
+  font-family: 'La Belle Aurore', cursive;
+  @include box-shadow(0 2px 2px darken(#393939, 15%));
+
+}
+
+/*  SECTIONS  */
+.section {
+  clear: both;
+  padding: 0px;
+  margin: 0px;
+}
+
+/*  COLUMN SETUP  */
+.col {
+//  display: block;
+  float:left;
+  margin: 1% 0 5% 5%;
+}
+.col:first-child { margin-left: 0; }
+
+
+/*  GROUPING  */
+.group:before,
+.group:after {
+  content:"";
+  display:table;
+}
+.group:after {
+  clear:both;
+}
+
+/*  GRID OF THREE  */
+.span_3_of_3 {
+  width: 100%;
+}
+.span_2_of_3 {
+  width: 66.1%;
+}
+.span_1_of_3 {
+  width: 32.2%;
+}
+
+.span_1 {
+  width: 23.2%;
+}
+
+.span_3 {
+  width: 20%;
+}
+
+.span_2 {
+  width: 45%;
+}
+
+
+
+
+.container {
+  padding: 1%;
+}
+
+.row {
+  margin-bottom: 10px;
+}
+
+.merchant {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.loot {
+  margin-bottom: 20px;
+
+  .header {
+    background-color: #73cdd0;
+    font-weight: bold;
+    color: white;
+    padding:15px 0px;
+    text-align: center;
+    @include border-radius(4px, 4px);
+    @include letterpress(0.5);
+  }
+
+  .data{
+    /*display: inline;*/
+    color: #464646 ;
+//    float: right;
+  }
+}
+
+
+.individual {
+  margin-bottom: 10px;
+
+  .header {
+    background-color: #297963;
+    font-weight: bold;
+    color: white;
+    padding:15px 0px;
+    text-align: center;
+    @include border-radius(4px, 4px);
+    @include letterpress(0.5);
+  }
+
+  .data {
+    text-align: center;
+    font-size: xx-large;
+  }
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #aaa;
+  float: left;
+  width: 40%;
+}
+
+
+table{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 5px;
+}
+
+tr{
+}
+
+td{
+  padding-top: 10px;
+}
+
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+@media only screen and (max-width: 680px) {
+  .col {
+    float: none;
+  }
+
+  .span_3_of_3 {
+    width: 100%;
+  }
+  .span_2_of_3 {
+    width: 100%;
+  }
+  .span_1_of_3 {
+    width: 100%;
+  }
+
+
+  .span_1 {
+    width: 100%;
+  }
+
+  .span_3 {
+    width: 100%;
+  }
+
+  .span_2 {
+    width: 100%;
+  }
+
+  .merchant {
+    display: block;
+  }
+
+  .col {
+    //  display: block;
+    float:none;
+    margin: 0 0 5% 0;
+  }
+}
+
+/*@media only screen and (max-width: 480px) {
+
+}*/
+
+
+//alert
+
+.main-layer {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  background: rgba(0, 0,0 , .8);
+//  background-color: #999999;
+}
+
+.layer {
+  @extend .main-layer;
+  height: 0;
+  top: 40px;
+}
+
+
+.lightbox{
+  position:absolute;
+  top: 70px;
+  left: 10%;
+  z-index: 1000;
+  width: 80%;
+  margin: 0 auto;
+  padding: 25px 15px 10px 15px;
+  background-color: #fff;
+  text-align: center;
+//  @extend .wrapping-shadow;
+//  @include box-sizing(border-box);
+}
+
+
+.invisible-layer {
+//  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: transparent;
+}
+
+.text-content {
+  margin-bottom: 30px;
+}
+
+#alert-title{
+  margin: -25px -15px 25px;
+  padding: 15px 25px;
+  line-height: 35px;
+  font-size: 26px;
+  color: #aaa;
+  font-weight: 300;
+  text-shadow: 0 1px rgba(white, .75);
+  background: #f7f7f7;
+}

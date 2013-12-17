@@ -1,0 +1,10 @@
+<div class="col span_3">
+        {{#each individual in controllers.loot.p}}
+            <table class="individual">
+                <caption class='header'>{{individual.name}}</caption>
+                <tr>
+                    <td class='data'>{{individual.amount}}</td>
+                </tr>
+            </table>
+        {{/each}}
+</div>

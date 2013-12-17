@@ -1,0 +1,17 @@
+{{view LazySplit.LootFormView viewName="lootFormView"}}
+<div class="col span_2">
+            {{#each loot in model}}
+        <table class='loot'>
+        <caption class="header">{{loot.name}}</caption>
+        <tr>
+        <td class='title'>Bank Balance Changed</td>
+        <td class='data'>{{loot.bankBalanceChanged}}</td>
+        </tr>
+        <tr>
+        <td class='title'>People In Split</td>
+        <td class='data'>{{loot.peopleInSplit}}</td>
+        </tr>
+        </table>
+            {{/each}}
+
+</div>
