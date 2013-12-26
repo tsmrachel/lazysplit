@@ -5,6 +5,7 @@ window.LazySplit = Ember.Application.create({});
 
 LazySplit.AlertController = Ember.ObjectController.extend({
     msg: null,
+    title: null,
     topStyle: "top:40px;",
     heightStyle: 'height:',
 
@@ -12,9 +13,10 @@ LazySplit.AlertController = Ember.ObjectController.extend({
         var layerHeight = $(document).height();
         this.set('heightStyle', "height:" + layerHeight + "px;");
     },
-    showAlert: function (msg) {
+    showAlert: function (title, msg) {
 
         this.set('msg', msg);
+        this.set('title', title);
 
         this.setLayerHeight();
 //        var fromTop = 40 + window.scrollY;
@@ -25,12 +27,13 @@ LazySplit.AlertController = Ember.ObjectController.extend({
 
     },
 
-    hideAlert: function () {
-        this.set('msg', null);
+    actions: {
+        hideAlert: function () {
+            this.set('msg', null);
+        }
     }
 
 });
-
 
 
 Ember.ObjectController.reopen({
@@ -107,12 +110,40 @@ LazySplit.Merchant = Ember.Object.extend({
     //check percentage cut doesn't go more than 100%
 });
 
-LazySplit.MerchantController = Ember.ObjectController.extend();
+LazySplit.MerchantController = Ember.ObjectController.extend({
+    setMerchantData:false,
+    actions: {
+        setTrue:function(){
+            this.set("setMerchantData", true);
+        },
+
+        helpBankBalanceChanged: function () {
+            this.get('controllers.alert').showAlert("WHAT'S THIS?", "Before selling any loot, ensure that you deposit all gold on hand, type 'show summary' and key in the amount under 'bank balance changed'. This is the base amount, used to calculate the amount of gold from selling the first batch of loot.");
+
+        },
+
+        helpPercentageCut: function () {
+            this.get('controllers.alert').showAlert("WHAT'S THIS?", "This is the percentage cut you will take from the amount of gold from the loot you sell. Generally, merchants take a 10% cut. If you are part of the party you are selling for, you usually do not take a cut.");
+        }
+    }
+
+});
 
 
 LazySplit.LootController = Ember.ArrayController.extend({
     needs: ['merchant'],
     p: Ember.A(),
+    actions: {
+        helpLootName: function () {
+            this.get('controllers.alert').showAlert("WHAT'S THIS?", "The loot name is mainly to keep track of the batches of loot sold. You can leave this field empty if you wish.");
+
+        },
+
+        helpBankBalanceChanged: function () {
+            this.get('controllers.alert').showAlert("WHAT'S THIS?", "After selling one batch of loot and depositing all gold on hand, type 'show summary' and key in the amount under 'bank balance changed'. This amount will be used to calculate the amount of gold from selling the batch of loot, and will also be used to calculate the amount of gold from selling the next batch of loot.");
+
+        }
+    },
     manageIndividuals: function () {
         console.log("content observer firing");
 
@@ -183,7 +214,7 @@ LazySplit.LootFormView = Ember.View.extend({
             console.log("controller: " + this.get('controller'));
             console.log(this.get('controller').get('controllers.merchant').get('percentageCut'));
 
-            if(this.checkInput()){
+            if (this.checkInput()) {
                 this.get('controller').pushObject(LazySplit.Loot.create({"name": this.name, "bankBalanceChanged": parseInt(this.bankBalanceChanged, 10), "previousBankBalanceChanged": parseInt(this.getPreviousBankBalanceChanged(), 10), "peopleInSplit": this.parsePeopleInSplit(), "merchantPercentage": parseInt(this.get('controller').get('controllers.merchant').get('percentageCut'), 10)}));
                 this.reset();
 
@@ -205,58 +236,58 @@ LazySplit.LootFormView = Ember.View.extend({
     parsePeopleInSplit: function () {
 
         var str = this.peopleInSplit;
-        var arr = str.toUpperCase().replace(' ','').split(",");
+        var arr = str.toUpperCase().replace(' ', '').split(",");
 
         return arr;
     },
 
-    checkInput: function(){
+    checkInput: function () {
 
-        if (!this.checkCurrentBankBalanceGreater()){
-            this.get('controller').get('controllers.alert').showAlert("Amount must be greater than previous Bank Balance Changed");
+        if (!this.checkCurrentBankBalanceGreater()) {
+            this.get('controller').get('controllers.alert').showAlert("WARNING", "Amount must be greater than previous Bank Balance Changed");
             return false;
         }
 
-        else if(!this.checkPeopleInSplit()){
-            this.get('controller').get('controllers.alert').showAlert("You must have someone to split loot with!");
+        else if (!this.checkPeopleInSplit()) {
+            this.get('controller').get('controllers.alert').showAlert("WARNING", "You must have someone to split loot with!");
             return false;
         }
 
         //check bank balance changed input is not empty
-        else if(this.bankBalanceChanged == null){
-            this.get('controller').get('controllers.alert').showAlert("You must have some loot to split!");
+        else if (this.bankBalanceChanged == null) {
+            this.get('controller').get('controllers.alert').showAlert("WARNING", "You must have some loot to split!");
             return false;
         }
 
-        else{
+        else {
             return true;
         }
     },
 
-    checkCurrentBankBalanceGreater: function(){
+    checkCurrentBankBalanceGreater: function () {
 
-        if (parseInt(this.bankBalanceChanged, 10) <= parseInt(this.getPreviousBankBalanceChanged(), 10)){
+        if (parseInt(this.bankBalanceChanged, 10) <= parseInt(this.getPreviousBankBalanceChanged(), 10)) {
 
             return false;
         }
 
-        else{
+        else {
 
             return true;
         }
     },
 
-    checkPeopleInSplit: function(){
-        if (this.peopleInSplit == null){
+    checkPeopleInSplit: function () {
+        if (this.peopleInSplit == null) {
             return false;
         }
 
-        else{
+        else {
             return true;
         }
     },
 
-    reset: function(){
+    reset: function () {
         this.set('name', null);
         this.set('bankBalanceChanged', null);
         this.set('peopleInSplit', null);

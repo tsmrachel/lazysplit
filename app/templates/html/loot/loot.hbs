@@ -1,17 +1,20 @@
-{{view LazySplit.LootFormView viewName="lootFormView"}}
-<div class="col span_2">
-            {{#each loot in model}}
+<td>
+{{#if controllers.merchant.setMerchantData}}
+    {{view LazySplit.LootFormView viewName="lootFormView"}}
+{{/if}}
+</td>
+<td>
+    {{#each loot in model}}
         <table class='loot'>
-        <caption class="header">{{loot.name}}</caption>
+        <caption>{{loot.name}}</caption>
         <tr>
         <td class='title'>Bank Balance Changed</td>
         <td class='data'>{{loot.bankBalanceChanged}}</td>
         </tr>
         <tr>
         <td class='title'>People In Split</td>
-        <td class='data'>{{loot.peopleInSplit}}</td>
+        <td class='data'><div>{{loot.peopleInSplit}}</div></td>
         </tr>
         </table>
-            {{/each}}
-
-</div>
+     {{/each}}
+</td>

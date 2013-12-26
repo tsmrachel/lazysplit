@@ -1,6 +1,7 @@
 @import "compass/reset";
 @import "compass/css3/box-shadow";
 @import "compass/css3/border-radius";
+@import "compass/css3/box-sizing";
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -10,9 +11,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 /* apply a natural box layout model to all elements */
 *, *:before, *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+  @include box-sizing(border-box);
 }
 
 @mixin font-size($sizeValue: 1.6) {
@@ -39,8 +38,8 @@ html{
 input {
   width: 100%;
   height: 40px;
-  margin-bottom: 25px;
-  margin-top: 5px;
+//  margin-bottom: 25px;
+//  margin-top: 5px;
   padding: 0 15px 2px;
   font-size: 17px;
   background: white;
@@ -59,7 +58,7 @@ input {
 
 button {
   position: relative;
-  vertical-align: top;
+//  vertical-align: top;
   width: 100%;
   height: 54px;
   padding: 0;
@@ -87,7 +86,7 @@ button {
   height: 40px;
   line-height: 42px;
   padding-left: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   color: white;
   font-weight: bold;
   font-size: 110%;
@@ -103,81 +102,44 @@ button {
   margin: 0px;
 }
 
-/*  COLUMN SETUP  */
-.col {
-//  display: block;
-  float:left;
-  margin: 1% 0 5% 5%;
-}
-.col:first-child { margin-left: 0; }
 
-
-/*  GROUPING  */
-.group:before,
-.group:after {
-  content:"";
-  display:table;
-}
-.group:after {
-  clear:both;
+.width-type-1 {
+  th:nth-of-type(1), td:nth-of-type(1) { width: 35%; }
+  th:nth-of-type(2), td:nth-of-type(2) { width: 35%; }
+  th:nth-of-type(3), td:nth-of-type(3) { width: 30%; }
 }
 
-/*  GRID OF THREE  */
-.span_3_of_3 {
-  width: 100%;
-}
-.span_2_of_3 {
-  width: 66.1%;
-}
-.span_1_of_3 {
-  width: 32.2%;
+.width-type-2 {
+  th:nth-of-type(1), td:nth-of-type(1) { width: 50%; }
+  th:nth-of-type(2), td:nth-of-type(2) { width: 50%; }
 }
 
-.span_1 {
-  width: 23.2%;
+
+.border {
+//  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(228, 228, 228, 0.5);
+//  box-shadow: inset 0 1px 0  rgb(240, 241, 241);
+  margin: 0;
 }
 
-.span_3 {
-  width: 20%;
+caption {
+  font-weight: bold;
+  color: white;
+  padding:15px 0px;
+  text-align: center;
+  @include border-radius(4px, 4px);
+  @include letterpress(0.5);
 }
 
-.span_2 {
-  width: 45%;
+.header{
+  padding-bottom:5px;
 }
 
 
 
-
-.container {
-  padding: 1%;
-}
-
-.row {
-  margin-bottom: 10px;
-}
-
-.merchant {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-.loot {
-  margin-bottom: 20px;
-
-  .header {
-    background-color: #73cdd0;
-    font-weight: bold;
-    color: white;
-    padding:15px 0px;
-    text-align: center;
-    @include border-radius(4px, 4px);
-    @include letterpress(0.5);
-  }
-
-  .data{
-    /*display: inline;*/
-    color: #464646 ;
-//    float: right;
+.form{
+  input{
+    margin-bottom: 20px;
   }
 }
 
@@ -185,14 +147,8 @@ button {
 .individual {
   margin-bottom: 10px;
 
-  .header {
+  caption {
     background-color: #297963;
-    font-weight: bold;
-    color: white;
-    padding:15px 0px;
-    text-align: center;
-    @include border-radius(4px, 4px);
-    @include letterpress(0.5);
   }
 
   .data {
@@ -205,70 +161,107 @@ button {
   font-size: 16px;
   font-weight: bold;
   color: #aaa;
-  float: left;
   width: 40%;
+  float: left;
 }
 
 
 table{
   width: 100%;
   border-collapse: separate;
-  border-spacing: 5px;
-}
-
-tr{
+  border-spacing: 30px;
+  table-layout: fixed;
 }
 
 td{
-  padding-top: 10px;
+  vertical-align: top;
 }
+
+.loot {
+  th:nth-of-type(1), td:nth-of-type(1) { width: 100%; }
+  th:nth-of-type(2), td:nth-of-type(2) { width: 100%; }
+  border-spacing: 0px 15px;
+  table-layout: auto;
+
+  caption {
+    background-color: #73cdd0;
+  }
+
+  .data{
+    color: #464646 ;
+    text-align: center;
+    width: 60%;
+  }
+
+//  .title{
+//    margin-bottom: 5px;
+//  }
+}
+
 
 
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 
 @media only screen and (max-width: 680px) {
-  .col {
-    float: none;
-  }
 
-  .span_3_of_3 {
-    width: 100%;
-  }
-  .span_2_of_3 {
-    width: 100%;
-  }
-  .span_1_of_3 {
-    width: 100%;
-  }
-
-
-  .span_1 {
-    width: 100%;
-  }
-
-  .span_3 {
-    width: 100%;
-  }
-
-  .span_2 {
-    width: 100%;
-  }
-
-  .merchant {
+  /* Force table to not be like tables anymore */
+  table, thead, tbody, th, td, tr, caption {
     display: block;
   }
 
-  .col {
-    //  display: block;
-    float:none;
-    margin: 0 0 5% 0;
+  table{
+    padding: 20px;
   }
+
+  .form{
+    margin-bottom: 30px;
+  }
+
+  .loot{
+    padding: 0px;
+    margin-bottom: 30px;
+    td{
+      text-align: center;
+      word-wrap: break-word;
+    }
+
+    .data{
+      margin-bottom: 10px;
+    }
+  }
+
+  .individual{
+    padding: 0px;
+    margin-bottom: 30px;
+  }
+
+
+  .width-type-1 {
+    th:nth-of-type(1), td:nth-of-type(1) { width: 100%; }
+    th:nth-of-type(2), td:nth-of-type(2) { width: 100%; }
+    th:nth-of-type(3), td:nth-of-type(3) { width: 100%; }
+  }
+
+
+
+caption{
+  margin-bottom: 10px;
+  padding: 5px;
 }
+
+  input{
+    margin-bottom: 20px;
+  }
+
+  .section{
+    margin-bottom: 30px;
+  }
+
 
 /*@media only screen and (max-width: 480px) {
 
 }*/
-
+}
 
 //alert
 
@@ -322,4 +315,45 @@ td{
   font-weight: 300;
   text-shadow: 0 1px rgba(white, .75);
   background: #f7f7f7;
+}
+
+#alert-text{
+  line-height: 25px;
+}
+
+
+
+
+.icon {
+  position: relative;
+  width:16px;
+  height:16px;
+  display: inline-block;
+  margin-left: 10px;
+  &:hover{
+    background-color: #0000ff;
+  }
+}
+
+
+.icon-help {
+  background-color: #000;
+  border-radius:9px;
+  -webkit-border-radius:9px;
+  -moz-border-radius:9px;
+  width: 18px;
+  height: 17px;
+  position: relative;
+  top:0;
+  left:0;
+  color:white;
+  text-align: center;
+}
+
+.width-type-2 {
+  th:nth-of-type(1), td:nth-of-type(1) { width: 50%; text-align: center;}
+  th:nth-of-type(2), td:nth-of-type(2) { width: 50%; text-align: center;}
+  .data{
+    font-size: xx-large;
+  }
 }

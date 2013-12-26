@@ -1,13 +1,17 @@
-<div>
+<div xmlns="http://www.w3.org/1999/html">
 
     <div class='nav-bar'>
         LazySplit
     </div>
 
-    <div class="container">
+    <div class="section border">
       {{outlet merchant}}
+    </div>
+    <div class="section">
+        <table class="l-c-r width-type-1">
       {{outlet loot}}
       {{outlet individual}}
+        </table>
     </div>
 
 </div>

@@ -1,12 +1,29 @@
-<div class="section group">
-    <div class="span_3_of_3">
-        <div class="merchant">
-            <p>Bank Balance Changed</p>
+{{#if setMerchantData}}
+    <table class="width-type-2">
+        <td>
+            <p class="header">Bank Balance Changed<span class="icon icon-help" {{action "helpBankBalanceChanged" target="controller"}}>?</span> </p>
+            <p class="data">{{bankBalanceChanged}}</p>
+        </td>
+
+        <td>
+            <p class="header">Percentage Cut<span class="icon icon-help" {{action "helpPercentageCut" target="controller"}}>?</span></p>
+            <p class="data">{{percentageCut}}%</p>
+        </td>
+    </table>
+
+{{else}}
+    <table class="width-type-1">
+        <td>
+            <p class="header">Bank Balance Changed<span class="icon icon-help" {{action "helpBankBalanceChanged" target="controller"}}>?</span> </p>
             <p>{{view LazySplit.NumericTextField type="number" valueBinding="bankBalanceChanged"}}</p>
-        </div>
-        <div class="merchant">
-            <p>Percentage Cut</p>
+        </td>
+
+        <td>
+            <p class="header">Percentage Cut<span class="icon icon-help" {{action "helpPercentageCut" target="controller"}}>?</span></p>
             <p>{{view LazySplit.NumericTextField type="number" min="0" max="100" valueBinding="percentageCut"}}</p>
-        </div>
-    </div>
-</div>
+        </td>
+        <td>
+            <button {{action "setTrue" target="controller"}}>Set</button>
+        </td>
+    </table>
+{{/if}}
