@@ -254,7 +254,7 @@ LazySplit.LootFormView = Ember.View.extend({
         }
 
         //check bank balance changed input is not empty
-        else if (this.bankBalanceChanged == null) {
+        else if (this.bankBalanceChanged == null||this.bankBalanceChanged ==="") {
             this.get('controller').get('controllers.alert').showAlert("WARNING", "You must have some loot to split!");
             return false;
         }
@@ -278,7 +278,7 @@ LazySplit.LootFormView = Ember.View.extend({
     },
 
     checkPeopleInSplit: function () {
-        if (this.peopleInSplit == null) {
+        if (this.peopleInSplit == null||this.peopleInSplit ==="") {
             return false;
         }
 
